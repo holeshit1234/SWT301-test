@@ -5,9 +5,14 @@
 package org.testng.swt301;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import org.testng.annotations.Test;
 import org.testng.util.DBHelper;
 
 /**
@@ -61,11 +66,13 @@ public class Swt301Testng {
                     + "Set Password = ? "
                     + "Where Email = ?";
             stm = con.prepareStatement(sql);
-            stm.setString(1, password);
-            stm.setString(2, email);
-            int effectedRows = stm.executeUpdate();
-            if (effectedRows > 0) {
-                result = true;
+            if (password.trim().length() >= 6) {
+                stm.setString(1, password);
+                stm.setString(2, email);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
             }
         } finally {
             if (stm != null) {
@@ -77,6 +84,52 @@ public class Swt301Testng {
         }
         return result;
     }
-   
-    
+
+    public boolean createAccount(String name, String password, Date dateOfBirth,
+            String email, String phone, String address, boolean sex)
+            throws SQLException, ClassNotFoundException, ParseException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into Customer("
+                        + "Name, Password, DateOfBirth, Email, Phone, Address, "
+                        + "Role, RankID, Sex, TypeOfLogin"
+                        + ") "
+                        + "Values(?, ?, ?, ?, ?, ?, 1, 1, ?, 1"
+                        + ")";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, password);
+                if (dateOfBirth != null) {
+                    java.sql.Date sqlDate = new java.sql.Date(dateOfBirth.getTime());
+                    stm.setDate(3, sqlDate);
+                } else {
+                    String date = "1-1-1999";
+                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                    Date defaultDate = df.parse(date);
+                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+                    stm.setDate(3, sqlDate);
+                }
+                stm.setString(4, email);
+                stm.setString(5, phone);
+                stm.setString(6, address);
+                stm.setBoolean(7, sex);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 }
