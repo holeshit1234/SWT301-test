@@ -4,7 +4,7 @@
  */
 package org.testng.main;
 
-import org.testng.TestNG;
+import java.sql.SQLException;
 import org.testng.swt301.Swt301Testng;
 
 /**
@@ -13,9 +13,14 @@ import org.testng.swt301.Swt301Testng;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        TestNG testng = new TestNG();
-        testng.setTestClasses(new Class[]{Swt301Testng.class});
-        testng.run();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//        Swt301Testng testng = new Swt301Testng();
+//        testng.setTestClasses(new Class[]{Object.class});
+//        testng.run();
+
+        Swt301Testng dao = new Swt301Testng();
+        boolean rs = dao.updatePassword("");
+        System.out.println(rs);
+
     }
 }

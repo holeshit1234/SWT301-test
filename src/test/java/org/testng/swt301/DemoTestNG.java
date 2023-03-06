@@ -18,12 +18,11 @@ public class DemoTestNG {
 
         @Test
         public void testUpdatePasswordWithEmptyPassword() {
-            String email = "example@example.com";
             String password = "";
             try {
-                Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
-                Assert.assertTrue(result);
+                Swt301Testng dao = new Swt301Testng();
+                boolean result = dao.updatePassword(password);
+                Assert.assertFalse(result);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
@@ -31,11 +30,10 @@ public class DemoTestNG {
 
         @Test
         public void testUpdatePasswordWithShortPassword() {
-            String email = "example@example.com";
             String password = "short";
             try {
                 Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
+                boolean result = updatePassword.updatePassword(password);
                 Assert.assertFalse(result);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
@@ -44,11 +42,10 @@ public class DemoTestNG {
 
         @Test
         public void testUpdatePasswordWithValidInput() {
-            String email = "example@example.com";
             String password = "newpassword";
             try {
                 Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
+                boolean result = updatePassword.updatePassword(password);
                 Assert.assertTrue(result);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
