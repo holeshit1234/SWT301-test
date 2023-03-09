@@ -17,10 +17,13 @@ public class Main {
 //        Swt301Testng testng = new Swt301Testng();
 //        testng.setTestClasses(new Class[]{Object.class});
 //        testng.run();
-
-        Swt301Testng dao = new Swt301Testng();
-        boolean rs = dao.updatePassword("");
-        System.out.println(rs);
-
+//
+//        Swt301Testng dao = new Swt301Testng();
+//        boolean rs = dao.updatePassword("");
+//        System.out.println(rs);
+        
+//        String txtQuantity = "";
+//        int quantity = Integer.parseInt(txtQuantity);
+//        System.out.println(quantity);
     }
 }
