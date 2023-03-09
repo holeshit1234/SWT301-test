@@ -23,7 +23,11 @@ import org.testng.util.DBHelper;
 public class CustomerDAO {
 
     public CustomerDTO checkLogin(String email, String password)
+<<<<<<< HEAD
             throws SQLException, ClassNotFoundException {
+=======
+            throws SQLException, NamingException, ClassNotFoundException {
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -76,7 +80,11 @@ public class CustomerDAO {
     }
 
     public boolean createAccount(CustomerDTO dto)
+<<<<<<< HEAD
             throws SQLException, ParseException, ClassNotFoundException {
+=======
+            throws SQLException, NamingException, ParseException, ClassNotFoundException {
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
         Connection con = null;
         PreparedStatement stm = null;
         boolean result = false;
@@ -92,6 +100,7 @@ public class CustomerDAO {
                         + ")";
                 //3. Create statement
                 stm = con.prepareStatement(sql);
+<<<<<<< HEAD
                 if (dto.getName().trim().length() > 1 || dto.getPassword().trim().length() > 1 || dto.getEmail().trim().length() > 1) {
                     stm.setString(1, dto.getName());
                     stm.setString(2, dto.getPassword());
@@ -120,6 +129,40 @@ public class CustomerDAO {
                     }
                 }//end con is available
             }
+=======
+                if (dto.getName().trim().length() > 1) {
+                    stm.setString(1, dto.getName());
+                }
+                if (dto.getPassword().trim().length() > 1) {
+                    stm.setString(2, dto.getPassword());
+                }
+                if (dto.getBirthDate() != null) {
+                    java.sql.Date sqlDate = new java.sql.Date(dto.getBirthDate().getTime());
+                    stm.setDate(3, sqlDate);
+                } else {
+                    String date = "1-1-1999";
+                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                    Date defaultDate = df.parse(date);
+                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+                    stm.setDate(3, sqlDate);
+                }
+                if (dto.getEmail().trim().length() > 1) {
+                    stm.setString(4, dto.getEmail());
+                }
+                stm.setString(5, dto.getPhone());
+                stm.setString(6, dto.getAddress());
+                stm.setBoolean(7, dto.isRole());
+                stm.setInt(8, dto.getRankID());
+                stm.setBoolean(9, dto.isSex());
+                stm.setInt(10, dto.getTypeOfLogin());
+                //4. ExecuteQuery
+                int effectedRows = stm.executeUpdate();
+                //5. Process result
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }//end con is available
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
         } finally {
             if (stm != null) {
                 stm.close();

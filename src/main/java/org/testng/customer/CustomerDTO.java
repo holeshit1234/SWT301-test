@@ -31,6 +31,13 @@ public class CustomerDTO {
         this.name = name;
     }
 
+<<<<<<< HEAD
+=======
+    
+
+    
+    
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
     public CustomerDTO(int customerID, String name, Date birthDate, String email, String phone, String address, int rankID, boolean sex, int typeOfLogin) {
         this.customerID = customerID;
         this.name = name;

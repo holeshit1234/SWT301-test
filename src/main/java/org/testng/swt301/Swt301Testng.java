@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import org.testng.annotations.Test;
 import org.testng.util.DBHelper;
 
 /**
@@ -54,7 +55,7 @@ public class Swt301Testng {
         return result;
     }
 
-    public boolean updatePassword(String password)
+    public boolean updatePassword(String email, String password)
             throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -63,16 +64,27 @@ public class Swt301Testng {
             con = DBHelper.makeConnection();
             String sql = "Update Customer "
                     + "Set Password = ? "
+<<<<<<< HEAD
                     + "Where Email LIKE 'chaunhattruong4747@gmail.com'";
             stm = con.prepareStatement(sql);
             if (password.trim().length() >= 6) {
                 stm.setString(1, password);
+=======
+                    + "Where Email = ?";
+            stm = con.prepareStatement(sql);
+            if (password.trim().length() >= 6) {
+                stm.setString(1, password);
+                stm.setString(2, email);
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
                 int effectedRows = stm.executeUpdate();
                 if (effectedRows > 0) {
                     result = true;
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
         } finally {
             if (stm != null) {
                 stm.close();
