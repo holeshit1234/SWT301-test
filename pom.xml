@@ -30,6 +30,13 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
         </dependency>
+        <!--        <dependency>
+            <groupId>org.testng.swt301</groupId>
+            <artifactId>swt301-testng</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>-->
     </dependencies>
 
 

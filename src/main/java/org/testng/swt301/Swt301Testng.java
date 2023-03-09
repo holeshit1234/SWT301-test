@@ -64,27 +64,20 @@ public class Swt301Testng {
             con = DBHelper.makeConnection();
             String sql = "Update Customer "
                     + "Set Password = ? "
-<<<<<<< HEAD
                     + "Where Email LIKE 'chaunhattruong4747@gmail.com'";
             stm = con.prepareStatement(sql);
             if (password.trim().length() >= 6) {
                 stm.setString(1, password);
-=======
-                    + "Where Email = ?";
-            stm = con.prepareStatement(sql);
-            if (password.trim().length() >= 6) {
-                stm.setString(1, password);
-                stm.setString(2, email);
->>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
-                int effectedRows = stm.executeUpdate();
-                if (effectedRows > 0) {
-                    result = true;
+                stm = con.prepareStatement(sql);
+                if (password.trim().length() >= 6) {
+                    stm.setString(1, password);
+                    stm.setString(2, email);
+                    int effectedRows = stm.executeUpdate();
+                    if (effectedRows > 0) {
+                        result = true;
+                    }
                 }
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 60bdf3ea8c463eb5566797981b4f00fd94a33603
         } finally {
             if (stm != null) {
                 stm.close();
