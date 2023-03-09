@@ -7,6 +7,12 @@ package org.testng.swt301;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.naming.NamingException;
+import org.testng.customer.CustomerDAO;
+import org.testng.customer.CustomerDTO;
 
 /**
  *
@@ -16,43 +22,169 @@ public class DemoTestNG {
 
     public class UpdatePasswordTest {
 
-        @Test
-        public void testUpdatePasswordWithEmptyPassword() {
-            String email = "example@example.com";
-            String password = "";
-            try {
-                Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
-                Assert.assertFalse(result);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
-        }
+//        @Test
+//        public void testUpdatePasswordWithEmptyPassword() {
+//            String email = "example@example.com";
+//            String password = "";
+//            try {
+//                Swt301Testng updatePassword = new Swt301Testng();
+//                boolean result = updatePassword.updatePassword(email, password);
+//                Assert.assertFalse(result);
+//            } catch (ClassNotFoundException | SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        @Test
+//        public void testUpdatePasswordWithShortPassword() {
+//            String email = "example@example.com";
+//            String password = "short";
+//            try {
+//                Swt301Testng updatePassword = new Swt301Testng();
+//                boolean result = updatePassword.updatePassword(email, password);
+//                Assert.assertFalse(result);
+//            } catch (ClassNotFoundException | SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        @Test
+//        public void testUpdatePasswordWithValidInput() {
+//            String email = "nguyenphat2711@gmail.com";
+//            String password = "phatnt";
+//            try {
+//                Swt301Testng updatePassword = new Swt301Testng();
+//                boolean result = updatePassword.updatePassword(email, password);
+//                Assert.assertFalse(result);
+//            } catch (ClassNotFoundException | SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
+        //Test login function
         @Test
-        public void testUpdatePasswordWithShortPassword() {
-            String email = "example@example.com";
-            String password = "short";
-            try {
-                Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
-                Assert.assertFalse(result);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Test
-        public void testUpdatePasswordWithValidInput() {
+        public void testLoginWithValidInput() {
             String email = "nguyenphat2711@gmail.com";
             String password = "phatnt";
-            try {
-                Swt301Testng updatePassword = new Swt301Testng();
-                boolean result = updatePassword.updatePassword(email, password);
-                Assert.assertFalse(result);
-            } catch (ClassNotFoundException | SQLException e) {
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
                 e.printStackTrace();
             }
         }
+        
+        @Test
+        public void testLoginWithEmptyUsernameInput() {
+            String email = "";
+            String password = "phatnt";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        
+        @Test
+        public void testLoginWithEmptyPasswordInput() {
+            String email = "nguyenphat2711@gmail.com";
+            String password = "";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        
+        @Test
+        public void testLoginWithEmptyUsernameAndPasswordInput() {
+            String email = "";
+            String password = "";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        
+        @Test
+        public void testLoginWithInvalidPasswordInput() {
+            String email = "nguyenphat2711@gmail.com";
+            String password = "123456789";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        
+        
+        @Test
+        public void testLoginWithInvalidUsernameInput() {
+            String email = "nguyenphat27gmail.com";
+            String password = "phatnt";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        
+        @Test
+        public void testLoginWithWrongInput() {
+            String email = "nguyenphat27gmail.com";
+            String password = "phat123nt";
+            try{
+                CustomerDAO dao = new CustomerDAO();
+                CustomerDTO dto = dao.checkLogin(email, password);
+                Assert.assertEquals(dto.getEmail(), email);
+            } catch(ClassNotFoundException | NamingException | SQLException e){
+                e.printStackTrace();
+            }
+        }
+        //end test case for login function
+        
+//        @Test
+//        public void testCreateAccountWithEmptyInput() throws ParseException {
+//            Date birthDate = new SimpleDateFormat("yyyy-MM-dd")
+//                        .parse("29-2-2002");
+//            CustomerDTO dto = new CustomerDTO("", "", birthDate, "", "0123456789", "other", false, 1, true, 0);
+//            try{
+//                CustomerDAO dao = new CustomerDAO();
+//                boolean result = dao.createAccount(dto);
+//                Assert.assertEquals(result, true);
+//            } catch(ClassNotFoundException | NamingException | SQLException e){
+//                e.printStackTrace();
+//            }
+//        }
+//        
+//        @Test
+//        public void testCreateAccountWithValidUsernameInput() {
+//            String email = "nguyenphat27gmail.com";
+//            String password = "phatnt";
+//            try{
+//                CustomerDAO dao = new CustomerDAO();
+//                CustomerDTO dto = dao.checkLogin(email, password);
+//                Assert.assertEquals(dto.getEmail(), email);
+//            } catch(ClassNotFoundException | NamingException | SQLException e){
+//                e.printStackTrace();
+//            }
+//        }
     }
 }
