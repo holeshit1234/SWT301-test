@@ -10,8 +10,10 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.naming.NamingException;
 import org.testng.customer.CustomerDAO;
 import org.testng.customer.CustomerDTO;
+import org.testng.product.ProductDAO;
 
 /**
  *
@@ -20,7 +22,9 @@ import org.testng.customer.CustomerDTO;
 public class DemoTestNG {
 
     public class UpdatePasswordTest {
-
+        
+        
+        //Test Login function
         @Test
         public void testLoginWithValidInput() {
             String email = "nguyenphat2711@gmail.com";
@@ -139,6 +143,37 @@ public class DemoTestNG {
                 e.printStackTrace();
             }
         }
+        
+        //end test login function
+        
+        
+        //Test search function
+        @Test
+        public void testSearchWithNotEmptyInput(){
+            String txtSearchValue = "ring";
+            try {
+                ProductDAO dao = new ProductDAO();
+                int numberOfItem = dao.searchProduct(txtSearchValue);
+                Assert.assertEquals(numberOfItem, 0);
+            } catch (ClassNotFoundException | SQLException | NamingException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
+        @Test
+        public void testSearchWithEmptyInput(){
+            String txtSearchValue = "";
+            try {
+                ProductDAO dao = new ProductDAO();
+                int numberOfItem = dao.searchProduct(txtSearchValue);
+                Assert.assertEquals(numberOfItem, 0);
+            } catch (ClassNotFoundException | SQLException | NamingException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
 
         @Test
         public void testUpdatePasswordWithEmptyPassword() {

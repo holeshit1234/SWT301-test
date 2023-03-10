@@ -52,4 +52,8 @@
                 <exec.appArgs></exec.appArgs>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Parallel Testing</actionName>
+            <displayName>Parallel Testing</displayName>
+        </action>
     </actions>
